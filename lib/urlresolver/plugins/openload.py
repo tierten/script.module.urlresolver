@@ -26,6 +26,7 @@ from urlresolver.resolver import UrlResolver, ResolverError
 API_BASE_URL = 'https://api.openload.co/1'
 INFO_URL = API_BASE_URL + '/streaming/info'
 GET_URL = API_BASE_URL + '/streaming/get?file={media_id}'
+FILE_URL = API_BASE_URL + '/file/info?file={media_id}'
 OL_PATH = os.path.join(common.plugins_path, 'ol_gmu.py')
 
 class OpenLoadResolver(UrlResolver):
@@ -44,6 +45,9 @@ class OpenLoadResolver(UrlResolver):
         except Exception as e:
             common.log_utils.log_debug('Exception during openload resolve parse: %s' % (e))
             try:
+                if not self.__file_exists(media_id):
+                    raise ResolverError('File Not Available')
+                
                 video_url = self.__check_auth(media_id)
                 if not video_url:
                     video_url = self.__auth_ip(media_id)
@@ -58,6 +62,10 @@ class OpenLoadResolver(UrlResolver):
     def get_url(self, host, media_id):
         return 'http://openload.co/embed/%s' % (media_id)
 
+    def __file_exists(self, media_id):
+        js_data = self.__get_json(FILE_URL.format(media_id=media_id))
+        return js_data.get('result', {}).get(media_id, {}).get('status') == 200
+        
     def __auth_ip(self, media_id):
         js_data = self.__get_json(INFO_URL)
         pair_url = js_data.get('result', {}).get('auth_url', '')
@@ -84,8 +92,8 @@ class OpenLoadResolver(UrlResolver):
     
     def __get_json(self, url):
         result = self.net.http_GET(url).content
+        common.log_utils.log(result)
         js_result = json.loads(result)
-        common.log_utils.log_debug(js_result)
         if js_result['status'] != 200:
             raise ResolverError(js_result['status'], js_result['msg'])
         return js_result

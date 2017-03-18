@@ -15,6 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
+import urllib2
 import json
 from lib import helpers
 from urlresolver import common
@@ -58,7 +59,14 @@ class TheVideoResolver(UrlResolver):
         common.log_utils.log('Checking Auth: %s' % (media_id))
         url = 'https://thevideo.me/pair?file_code=%s&check' % (media_id)
         try: js_result = json.loads(self.net.http_GET(url, headers=self.headers).content)
-        except ValueError: raise ResolverError('Unusable Authorization Response')
+        except ValueError:
+            raise ResolverError('Unusable Authorization Response')
+        except urllib2.HTTPError as e:
+            if e.code == 401:
+                js_result = json.loads(e.read())
+            else:
+                raise
+            
         common.log_utils.log('Auth Result: %s' % (js_result))
         if js_result.get('status'):
             return js_result.get('response', {}).get('vt')

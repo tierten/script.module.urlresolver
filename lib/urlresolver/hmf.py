@@ -114,10 +114,9 @@ class HostedMediaFile:
         elements = urlparse.urlparse(url)
         domain = elements.netloc or elements.path
         domain = domain.split('@')[-1].split(':')[0]
-        regex = "([\w-]{2,}\.\w{2,3}\.\w{2}|[\w-]{2,}\.\w{2,3})$"
+        regex = "([\w\-]*\.[\w\-]{2,3}(?:\.[\w\-]{2,3})?)$"
         res = re.search(regex, domain)
-        if res:
-            domain = res.group(1)
+        if res: domain = res.group(1)
         domain = domain.lower()
         return domain
 

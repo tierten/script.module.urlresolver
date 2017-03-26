@@ -141,7 +141,7 @@ def scrape_sources(html, result_blacklist=None, scheme='http'):
     source_list = []
     source_list += __parse_to_list(html, '''["']?label\s*["']?\s*[:=]\s*["'](?P<label>[^"']+)["'](?:,|[^}\]])["']?\s*file\s*["']?\s*[:=,]?\s*["'](?P<url>[^"']+)''')
     source_list += __parse_to_list(html, '''["']?\s*file\s*["']?\s*[:=,]?\s*["'](?P<url>[^"']+)(?:[^}>\],]?["',]?\s*label\s*["']?\s*[:=]?\s*["'](?P<label>[^"']+))?''')
-    source_list += __parse_to_list(html, '''video[^><]+src\s*=\s*['"](?P<url>[^'"]+)''')
+    source_list += __parse_to_list(html, '''video[^><]+src\s*[=:]\s*['"](?P<url>[^'"]+)''')
     source_list += __parse_to_list(html, '''source\s+src\s*=\s*['"](?P<url>[^'"]+)['"](?:.*?data-res\s*=\s*['"](?P<label>[^'"]+))?''')
     source_list += __parse_to_list(html, '''["']?\s*url\s*["']?\s*[:=]\s*["'](?P<url>[^"']+)''')
     source_list += __parse_to_list(html, '''param\s+name\s*=\s*"src"\s*value\s*=\s*"(?P<url>[^"]+)''')

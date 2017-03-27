@@ -23,7 +23,7 @@ from __generic_resolver__ import GenericResolver
 
 
 class MystreamResolver(GenericResolver):
-    name = "filez"
+    name = "mystream"
     domains = ['mystream.la']
     pattern = '(?://|\.)(mystream\.la)/(?:external/)?([0-9a-zA-Z_]+)'
 

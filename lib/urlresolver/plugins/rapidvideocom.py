@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 import random
+import re
 from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
@@ -40,7 +41,8 @@ class RapidVideoResolver(UrlResolver):
         post_url = web_url + '#'
         html = self.net.http_POST(post_url, form_data=data, headers=headers).content.encode('utf-8')
         sources = helpers.parse_sources_list(html)
-        try: sources.sort(key=lambda x: x[0], reverse=True)
+        sources = [(re.sub('[^\d]+', '', i[0]), i[1]) for i in sources]
+        try: sources.sort(key=lambda x: int(x[0]), reverse=True)
         except: pass
         return helpers.pick_source(sources)
 

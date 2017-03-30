@@ -18,36 +18,13 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import re
-from lib import helpers
-from urlresolver import common
-from urlresolver.resolver import UrlResolver, ResolverError
 
-class StreamangoResolver(UrlResolver):
+from __generic_resolver__ import GenericResolver
+
+class StreamangoResolver(GenericResolver):
     name = "streamango"
     domains = ['streamango.com']
-    pattern = '(?://|\.)(streamango\.com)/\w/(\w+)'
-    
-    def __init__(self):
-        self.net = common.Net()
+    pattern = '(?://|\.)(streamango\.com)/(?:f/)?([0-9a-zA-Z]+)'
 
-    def get_media_url(self, host, media_id):
-        web_url = self.get_url(host, media_id)
-        headers = {'User-Agent': common.FF_USER_AGENT}
-        html = self.net.http_GET(web_url, headers=headers).content
-        headers['Referer'] = web_url
-        
-        if html:
-            r = re.search(r'srces\.push\({type:[\"\']video/mp4[\"\'],src:[\"\'](.*?)[\"\'].*?}\);', html)
-            if r:
-                source = r.group(1)
-                if source.startswith("//"): source = "http:%s" % source
-            else:
-                raise ResolverError('No playable video found.')
-
-            return source + helpers.append_headers(headers)
-            
-        raise ResolverError('No playable video found.')
-    
     def get_url(self, host, media_id):
-        return 'https://streamango.com/f/%s' % media_id
+        return self._default_get_url(host, media_id, 'http://{host}/f/{media_id}')

@@ -3,12 +3,13 @@
 # Addon Provider: TV Addons
 # Translators:
 # tknorris, 2017
+# Jose Riha, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: TV Addons Addons\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: tknorris, 2017\n"
+"Last-Translator: Jose Riha, 2017\n"
 "Language-Team: Slovak (https://www.transifex.com/tv-addons/teams/41608/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -175,4 +176,12 @@ msgstr "Zrušiť"
 msgctxt "#33039"
 msgid "OK"
 msgstr "OK"
+
+msgctxt "#33040"
+msgid "IP Stream Authorization Pairing"
+msgstr "Párovanie autorizácie IP streamu"
+
+msgctxt "#33041"
+msgid "No IP Authorization"
+msgstr "Chýba IP autorizácia"
 

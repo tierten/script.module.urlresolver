@@ -2,80 +2,79 @@
 # Addon id: script.module.urlresolver
 # Addon Provider: TV Addons
 # Translators:
-# Mike Bike, 2017
+# Jonatan Nyberg, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: TV Addons Addons\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mike Bike, 2017\n"
-"Language-Team: Dutch (https://www.transifex.com/tv-addons/teams/41608/nl/)\n"
+"Last-Translator: Jonatan Nyberg, 2017\n"
+"Language-Team: Swedish (https://www.transifex.com/tv-addons/teams/41608/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nl\n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "#33000"
 msgid "OpenLoad Stream Authorization"
-msgstr "OpenLoad Stream Authorisatie"
+msgstr "OpenLoad Ström Auktorisering"
 
 msgctxt "#33001"
 msgid "To play this video, authorization is required"
-msgstr "Om deze video af te spelen, is authorisatie nodig"
+msgstr "För att spela den här videon krävs auktorisation"
 
 msgctxt "#33002"
 msgid "Visit the link below to authorize the devices on your network:"
-msgstr ""
-"Bezoek de link hieronder om dit apparaat te autorizeren in uw netwerk:"
+msgstr "Besök länken nedan för att tillåta enheter i nätverket:"
 
 msgctxt "#33003"
 msgid "[B][COLOR blue]%s[/COLOR][/B] then click 'Pair'"
-msgstr "[B][COLOR blue]%s[/COLOR][/B] en klik op 'Pair'"
+msgstr "[B][COLOR blue]%s[/COLOR][/B] klicka sedan 'Ihopparning'"
 
 msgctxt "#33004"
 msgid "No OpenLoad Authorization"
-msgstr "Geen OpenLoad Authorisatie"
+msgstr "Ingen OpenLoad Auktorisering"
 
 msgctxt "#33005"
 msgid "Automatically update resolver"
-msgstr "Automatisch updaten van resolver"
+msgstr "Automatiskt Uppdatera Resolver"
 
 msgctxt "#33006"
 msgid "Auto-Update Url"
-msgstr "Auto-Update Url"
+msgstr "Auto-Uppdatera Url"
 
 msgctxt "#33007"
 msgid "Decryption Key"
-msgstr "Decryption Sleutel"
+msgstr "Dekrypteringsnyckel"
 
 msgctxt "#33008"
 msgid "TheVideo.me Stream Authorization"
-msgstr "TheVideo.me Stream Authorisatie"
+msgstr "TheVideo.me Ström Auktorisering"
 
 msgctxt "#33009"
 msgid "VidUP.me Stream Authorization"
-msgstr "VidUP.me Stream Authorisatie"
+msgstr "VidUP.me Ström Auktorisering"
 
 msgctxt "#33010"
 msgid "Enable Universal Resolvers"
-msgstr "Inschakelen Universele Resolvers"
+msgstr "Aktivera Universal Resolvers"
 
 msgctxt "#33011"
 msgid "Automatically pick best quality"
-msgstr "Automatisch beste kwaliteit selecteren"
+msgstr "Välj automatiskt bästa kvalitet"
 
 msgctxt "#33012"
 msgid "Use Function Cache"
-msgstr "Gebruik Functie Cache"
+msgstr "Använd Function Cache"
 
 msgctxt "#33013"
 msgid "Reset Function Cache"
-msgstr "Reset Functie Cache"
+msgstr "Nollställ Function Cache"
 
 msgctxt "#33014"
 msgid "Universal Resolvers"
-msgstr "Universele Resolvers"
+msgstr "Universal Resolvers"
 
 msgctxt "#33015"
 msgid "Resolvers"
@@ -83,47 +82,47 @@ msgstr "Resolvers"
 
 msgctxt "#33016"
 msgid "Priority"
-msgstr "Prioriteit"
+msgstr "Prioritet"
 
 msgctxt "#33017"
 msgid "Enabled"
-msgstr "Ingeschakeld"
+msgstr "Aktiverad"
 
 msgctxt "#33018"
 msgid "Real-Debrid Resolver Authorized"
-msgstr "Real-Debrid Resolver Authoriseren"
+msgstr "Real-Debrid Resolver Auktorisering"
 
 msgctxt "#33019"
 msgid "Real-Debrid Authorization Reset"
-msgstr "Real-Debrid Authorisatie Reset"
+msgstr "Nollställ Real-Debrid Auktorisering"
 
 msgctxt "#33020"
 msgid "Cache Reset"
-msgstr "Cache Reset"
+msgstr "Nollställ Cache"
 
 msgctxt "#33021"
 msgid "Cache Reset Failed"
-msgstr "Cache Reset Mislukt"
+msgstr "Cache Nollställning Misslyckades"
 
 msgctxt "#33022"
 msgid "login"
-msgstr "Login"
+msgstr "logga in"
 
 msgctxt "#33023"
 msgid "Username"
-msgstr "Gebruikersnaam"
+msgstr "Användarnamn"
 
 msgctxt "#33024"
 msgid "Password"
-msgstr "Wachtwoord"
+msgstr "Lösenord"
 
 msgctxt "#33025"
 msgid "Use HTTPS"
-msgstr "Gebruik HTTPS"
+msgstr "Använd HTTPS"
 
 msgctxt "#33026"
 msgid "Customer ID"
-msgstr "Klant ID"
+msgstr "Kund ID"
 
 msgctxt "#33027"
 msgid "PIN"
@@ -131,47 +130,47 @@ msgstr "PIN"
 
 msgctxt "#33028"
 msgid "Choose Primary Link Automatically"
-msgstr "Kies Primaire Link Automatisch"
+msgstr "Välj Primär Länk Automatiskt"
 
 msgctxt "#33029"
 msgid "(Re)Authorize My Account"
-msgstr "(Her)Authoriseren Mijn Account"
+msgstr "(Om)Auktorisera Mitt konto"
 
 msgctxt "#33030"
 msgid "Reset My Authorization"
-msgstr "Reset Mijn Authorisatie"
+msgstr "Nollställ Min Auktorisering"
 
 msgctxt "#33031"
 msgid "Resolver Auto-Updated"
-msgstr "Resolver Auto-Updated"
+msgstr "Resolver Auto-Uppdaterad"
 
 msgctxt "#33032"
 msgid "Type the letters in the image"
-msgstr "Typ de letters in de afbeelding"
+msgstr "Skriv in bokstäverna i bilden"
 
 msgctxt "#33033"
 msgid "Captcha Error"
-msgstr "Captcha Error"
+msgstr "Fel Captcha"
 
 msgctxt "#33034"
 msgid "Choose the link"
-msgstr "Kies de Link"
+msgstr "Välj en länk"
 
 msgctxt "#33035"
 msgid "No link selected"
-msgstr "Geen link geselecteerd"
+msgstr "Ingen Länk Markerad"
 
 msgctxt "#33036"
 msgid "No Video Link Found"
-msgstr "Geen Video Link Gevonden"
+msgstr "Ingen Video Länk Hittades"
 
 msgctxt "#33037"
 msgid "Captcha Round: %s [I](2 Rounds is typical)[/I]"
-msgstr "Captcha Ronde: %s [I](2 Rondes zijn logisch)[/I]"
+msgstr "Captcha Runda: %s [I](2 Rundor är typiskt)[/I]"
 
 msgctxt "#33038"
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Avbryt"
 
 msgctxt "#33039"
 msgid "OK"
@@ -179,9 +178,9 @@ msgstr "OK"
 
 msgctxt "#33040"
 msgid "IP Stream Authorization Pairing"
-msgstr "IP Stream Authoriseren Pair"
+msgstr "IP Ström Auktorisering Ihopparning"
 
 msgctxt "#33041"
 msgid "No IP Authorization"
-msgstr "Geen IP Authorisatie"
+msgstr "Ingen IP Auktorisering"
 

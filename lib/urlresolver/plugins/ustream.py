@@ -23,7 +23,7 @@ from urlresolver.resolver import UrlResolver, ResolverError
 class UstreamResolver(UrlResolver):
     name = 'ustream.tv'
     domains = ['ustream.tv']
-    pattern = '(?://|\.)(ustream\.tv)/(?:embed/)?([^/?=]+)'
+    pattern = '(?://|\.)(ustream\.tv)/embed/([^/?="]+)'
     
     def __init__(self):
         self.net = common.Net()

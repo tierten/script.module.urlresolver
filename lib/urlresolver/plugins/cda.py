@@ -35,33 +35,22 @@ class CdaResolver(UrlResolver):
         self.net = common.Net()
 
     def get_media_url(self, host, media_id):
-        print "ALA CDA"
         web_url = self.get_url(host, media_id)
-        print web_url
 
         headers = {'Referer': web_url, 'User-Agent': common.FF_USER_AGENT}
         html = self.net.http_GET(web_url, headers=headers).content
-        #print html
         try: html = html.encode('utf-8')
         except: pass
-        #if "This video doesn't exist." in html:
-        #    raise ResolverError('The requested video was not found.')
-        
-        #match = re.search('<a data-quality="(.*?)" href="(.*?)".*?>(.*?)</a>', html, re.DOTALL)
         match = re.compile('<a data-quality="(.*?)" href="(.*?)".*?>(.*?)</a>', re.DOTALL).findall(html)
         match20 = re.search("['\"]file['\"]:['\"](.*?\.mp4)['\"]", html)
 
-        print match
 
         if match:
             mylinks =sorted(match, key=lambda x: x[2])
-            print mylinks[-1][1]
             html = self.net.http_GET(mylinks[-1][1], headers=headers).content
-            #print html
             match20 = re.search("['\"]file['\"]:['\"](.*?\.mp4)['\"]", html)
             if match20:
                 mylink = match20.group(1).replace("\\", "")
-                print "CDA.PL - STEP 3 %s " % mylink
                 return self.check_vid(mylink) + '|Cookie=PHPSESSID=1&Referer=http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'
 
             html = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
@@ -72,7 +61,6 @@ class CdaResolver(UrlResolver):
             match20 = re.search("['\"]file['\"]:['\"](.*?)['\"]", html)
             if match20:
                 mylink = match20.group(1).replace("\\", "")
-                print "CDA.PL - STEP 3 %s " % mylink
                 return self.check_vid(mylink) + '|Cookie=PHPSESSID=1&Referer=http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'
             html1 = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
             match7 = re.search('src="(.*?).mp4"',html1)
@@ -88,5 +76,4 @@ class CdaResolver(UrlResolver):
         if re.match('uggc', videolink):
             videolink = string.translate(videolink, rot13)
             videolink = videolink[:-7] + videolink[-4:]
-        print 'videolink',videolink
         return videolink

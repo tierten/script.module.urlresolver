@@ -15,7 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
-
 from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
@@ -31,17 +30,17 @@ class trtResolver(UrlResolver):
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
-        html = self.net.http_GET(web_url).content
-        try:
-            r = re.findall('<a href="([^"]+)" class="mainPlayerQualityHref" data-url="([^"]+)">720p</a>', html)[0][0]
-            html = self.net.http_GET('https://www.trt.pl%s' % r ).content
-        except:
-            pass
-        try:
-            r = re.findall('src="(http[^"]+mp4)"', html)[0]
-            return r
-        except:
-            raise ResolverError('File not found or removed')
+        headers = {'Referer': web_url, 'User-Agent': common.FF_USER_AGENT}
+
+        html = self.net.http_GET(web_url, headers=headers).content
+        pages = re.findall('href="([^"]+)[^>]+class="mainPlayerQualityHref"[^>]+>(.*?)</a>', html)
+        if pages:
+            try: pages.sort(key=lambda x: int(x[1][:-1]), reverse=True)
+            except: pass
+            html = self.net.http_GET('https://www.trt.pl' + pages[0][0], headers=headers).content
+        
+        sources = helpers.scrape_sources(html, scheme='https')
+        return helpers.pick_source(sources) + helpers.append_headers(headers)
 
     def get_url(self, host, media_id):
         return 'https://www.trt.pl/film/%s' % media_id

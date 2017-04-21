@@ -15,7 +15,6 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
 import re
 from lib import jsunpack
 from lib import helpers
@@ -30,54 +29,43 @@ rot13 = string.maketrans(
 class CdaResolver(UrlResolver):
     name = "cda"
     domains = ['cda.pl', 'www.cda.pl', 'ebd.cda.pl']
-    pattern = '(?://|\.)(cda\.pl)/(?:.\d+x\d+|video)/([0-9a-zA-Z]+).*?'
+    pattern = '(?://|\.)(cda\.pl)/(?:.\d+x\d+|video)/([0-9a-zA-Z]+)'
 
     def __init__(self):
         self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
-
         headers = {'Referer': web_url, 'User-Agent': common.FF_USER_AGENT}
+
+        player_headers = {'Cookie': 'PHPSESSID=1', 'Referer': 'http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'}
+        player_headers.update(headers)
+
         html = self.net.http_GET(web_url, headers=headers).content
         try: html = html.encode('utf-8')
         except: pass
-        match = re.compile('<a data-quality="(.*?)" href="(.*?)".*?>(.*?)</a>', re.DOTALL).findall(html)
-        match20 = re.search("['\"]file['\"]:['\"](.*?\.mp4)['\"]", html)
-
-
+        match = re.findall('data-quality="(.*?)" href="(.*?)".*?>(.*?)</a>', html, re.DOTALL)
         if match:
-            mylinks =sorted(match, key=lambda x: x[2])
+            mylinks = sorted(match, key=lambda x: x[2])
             html = self.net.http_GET(mylinks[-1][1], headers=headers).content
-            match20 = re.search("['\"]file['\"]:['\"](.*?\.mp4)['\"]", html)
-            if match20:
-                mylink = match20.group(1).replace("\\", "")
-                return self.check_vid(mylink) + self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
+            
+        match = re.search('''['"]file['"]:['"](.*?\.mp4)['"]''', html)
+        if match:
+            mylink = match.group(1).replace("\\", "")
+            return self.__check_vid(mylink) + helpers.append_headers(player_headers)
 
-            html = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
-            match7 = re.search('src="(.*?).mp4"',html)
-            if match7:
-                return self.check_vid(match7.group(1)) + '.mp4' + self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
-        else:
-            match20 = re.search("['\"]file['\"]:['\"](.*?)['\"]", html)
-            if match20:
-                mylink = match20.group(1).replace("\\", "")
-                return self.check_vid(mylink) + self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
-            html1 = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
-            match7 = re.search('src="(.*?).mp4"',html1)
+        html = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
+        match = re.search('src="(.*?\.mp4)"', html)
+        if match:
+            return self.__check_vid(match.group(1)) + helpers.append_headers(player_headers)
 
-            if match7:
-                return self.check_vid(match7.group(1)) + '.mp4'+self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
         raise ResolverError('Video Link Not Found')
+
+    def __check_vid(self, video_link):
+        if re.match('uggc', video_link):
+            video_link = string.translate(video_link, rot13)
+            video_link = video_link[:-7] + video_link[-4:]
+        return video_link
 
     def get_url(self, host, media_id):
         return 'http://ebd.cda.pl/620x368/%s' % media_id
-
-    def check_vid(self, videolink):
-        if re.match('uggc', videolink):
-            videolink = string.translate(videolink, rot13)
-            videolink = videolink[:-7] + videolink[-4:]
-        return videolink
-
-    def appendHeaders(self, playerUrl):
-        return helpers.append_headers({'Cookie': 'PHPSESSID = 1', 'Referer': playerUrl})

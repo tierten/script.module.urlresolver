@@ -18,6 +18,7 @@
 
 import re
 from lib import jsunpack
+from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 import string
@@ -51,22 +52,22 @@ class CdaResolver(UrlResolver):
             match20 = re.search("['\"]file['\"]:['\"](.*?\.mp4)['\"]", html)
             if match20:
                 mylink = match20.group(1).replace("\\", "")
-                return self.check_vid(mylink) + '|Cookie=PHPSESSID=1&Referer=http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'
+                return self.check_vid(mylink) + self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
 
             html = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
             match7 = re.search('src="(.*?).mp4"',html)
             if match7:
-                return self.check_vid(match7.group(1))+'.mp4|Cookie=PHPSESSID=1&Referer=http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'            #aa_text = aa_decoder.AADecoder(match.group(1)).decode()
+                return self.check_vid(match7.group(1)) + '.mp4' + self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
         else:
             match20 = re.search("['\"]file['\"]:['\"](.*?)['\"]", html)
             if match20:
                 mylink = match20.group(1).replace("\\", "")
-                return self.check_vid(mylink) + '|Cookie=PHPSESSID=1&Referer=http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'
+                return self.check_vid(mylink) + self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
             html1 = jsunpack.unpack(re.search("eval(.*?)\{\}\)\)", html, re.DOTALL).group(1))
             match7 = re.search('src="(.*?).mp4"',html1)
 
             if match7:
-                return self.check_vid(match7.group(1))+'.mp4|Cookie=PHPSESSID=1&Referer=http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf'            #aa_text = aa_decoder.AADecoder(match.group(1)).decode()
+                return self.check_vid(match7.group(1)) + '.mp4'+self.appendHeaders('http://static.cda.pl/flowplayer/flash/flowplayer.commercial-3.2.18.swf')
         raise ResolverError('Video Link Not Found')
 
     def get_url(self, host, media_id):
@@ -77,3 +78,6 @@ class CdaResolver(UrlResolver):
             videolink = string.translate(videolink, rot13)
             videolink = videolink[:-7] + videolink[-4:]
         return videolink
+
+    def appendHeaders(self, playerUrl):
+        return helpers.append_headers({'Cookie': 'PHPSESSID = 1', 'Referer': playerUrl})

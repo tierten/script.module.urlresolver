@@ -1,6 +1,6 @@
-"""
-powerwatch urlresolver plugin based on StreamcloudResolver
-Copyright (C) 2016 Seberoth
+'''
+vidzi urlresolver plugin
+Copyright (C) 2014 Eldorado
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,32 +14,33 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
-"""
-
+'''
 from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
+import re
 
-
-class PowerwatchResolver(UrlResolver):
-    name = "powerwatch"
-    domains = ["powerwatch.pw"]
-    pattern = '(?://|\.)(powerwatch\.pw)/([0-9a-zA-Z]+)'
+class trtResolver(UrlResolver):
+    name = "trt"
+    domains = ["trt.pl"]
+    pattern = '(?://|\.)(trt\.pl)/(?:film)/([0-9a-zA-Z]+)'
 
     def __init__(self):
         self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
-        headers = {'User-Agent': common.FF_USER_AGENT}
-        response = self.net.http_GET(web_url, headers=headers)
-        html = response.content
-        data = helpers.get_hidden(html)
-        common.kodi.sleep(5000)
-        headers['Cookie'] = response.get_headers(as_dict=True).get('Set-Cookie', '')
-        html = self.net.http_POST(response.get_url(), headers=headers, form_data=data).content
-        sources = helpers.scrape_sources(html)
+        headers = {'Referer': web_url, 'User-Agent': common.FF_USER_AGENT}
+
+        html = self.net.http_GET(web_url, headers=headers).content
+        pages = re.findall('href="([^"]+)[^>]+class="mainPlayerQualityHref"[^>]+>(.*?)</a>', html)
+        if pages:
+            try: pages.sort(key=lambda x: int(x[1][:-1]), reverse=True)
+            except: pass
+            html = self.net.http_GET('https://www.trt.pl' + pages[0][0], headers=headers).content
+        
+        sources = helpers.scrape_sources(html, scheme='https')
         return helpers.pick_source(sources) + helpers.append_headers(headers)
 
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id, 'http://{host}/{media_id}')
+        return 'https://www.trt.pl/film/%s' % media_id

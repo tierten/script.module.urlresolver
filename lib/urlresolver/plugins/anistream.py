@@ -20,4 +20,4 @@ from __generic_resolver__ import GenericResolver
 class AniStreamResolver(GenericResolver):
     name = "ani-stream"
     domains = ["ani-stream.com"]
-    pattern = '(?://|\.)(www\.ani-stream\.com)/(?:embed-)?([0-9a-zA-Z\.-]+)'
+    pattern = '(?://|\.)(ani-stream\.com)/(?:embed-)?([0-9a-zA-Z-]+)'

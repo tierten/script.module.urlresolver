@@ -20,6 +20,7 @@ import abc
 from lib import helpers
 from urlresolver.resolver import UrlResolver
 
+
 class GenericResolver(UrlResolver):
     __metaclass__ = abc.ABCMeta
     
@@ -32,7 +33,11 @@ class GenericResolver(UrlResolver):
     """
     name = 'generic'
     domains = ['example.com']
-    pattern = '(?://|\.)(%s)/(?:embed[/-])?([A-Za-z0-9]+)' % re.escape('|'.join(domains))
+    pattern = None
+
+    def __init__(self):
+        if self.pattern is None:
+            self.pattern = '(?://|\.)(%s)/(?:embed[/-])?([A-Za-z0-9]+)' % re.escape('|'.join(self.domains))
 
     def get_media_url(self, host, media_id):
         """

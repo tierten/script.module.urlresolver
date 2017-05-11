@@ -2,127 +2,127 @@
 # Addon id: script.module.urlresolver
 # Addon Provider: TV Addons
 # Translators:
-# Jonatan Nyberg, 2017
+# Ondřej Zima, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: TV Addons Addons\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Jonatan Nyberg, 2017\n"
-"Language-Team: Swedish (https://www.transifex.com/tv-addons/teams/41608/sv/)\n"
+"Last-Translator: Ondřej Zima, 2017\n"
+"Language-Team: Czech (https://www.transifex.com/tv-addons/teams/41608/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sv\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 msgctxt "#33000"
 msgid "OpenLoad Stream Authorization"
-msgstr "OpenLoad strömauktorisering"
+msgstr "Autorizace vysílání OpenLoad"
 
 msgctxt "#33001"
 msgid "To play this video, authorization is required"
-msgstr "För att spela den här videon krävs auktorisation"
+msgstr "Pro přehrání tohoto videa je vyžadována autorizace"
 
 msgctxt "#33002"
 msgid "Visit the link below to authorize the devices on your network:"
-msgstr "Besök länken nedan för att tillåta enheter i nätverket:"
+msgstr "Autorizace zařízení provedete na následující webové stránce:"
 
 msgctxt "#33003"
 msgid "[B][COLOR blue]%s[/COLOR][/B] then click 'Pair'"
-msgstr "[B][COLOR blue]%s[/COLOR][/B] klicka sedan 'Ihopparning'"
+msgstr "[B][COLOR blue]%s[/COLOR][/B] a poté zvolte „Párovat“ (Pair)"
 
 msgctxt "#33004"
 msgid "No OpenLoad Authorization"
-msgstr "Ingen OpenLoad auktorisering"
+msgstr "OpenLoad není autorizován"
 
 msgctxt "#33005"
 msgid "Automatically update resolver"
-msgstr "Uppdatera automatiskt Resolver"
+msgstr "Automaticky aktualizovat průzkumníka"
 
 msgctxt "#33006"
 msgid "Auto-Update Url"
-msgstr "Uppdatera automatiskt url"
+msgstr "URL automatické aktualizace"
 
 msgctxt "#33007"
 msgid "Decryption Key"
-msgstr "Dekrypteringsnyckel"
+msgstr "Dešifrovací klíč"
 
 msgctxt "#33008"
 msgid "TheVideo.me Stream Authorization"
-msgstr "TheVideo.me strömauktorisering"
+msgstr "Autorizace vysílání TheVideo.me"
 
 msgctxt "#33009"
 msgid "VidUP.me Stream Authorization"
-msgstr "VidUP.me strömauktorisering"
+msgstr "Autorizace vysílání VidUP.me"
 
 msgctxt "#33010"
 msgid "Enable Universal Resolvers"
-msgstr "Aktivera Universal Resolvers"
+msgstr "Povolit univerzální průzkumníky"
 
 msgctxt "#33011"
 msgid "Automatically pick best quality"
-msgstr "Välj automatiskt bästa kvalitet"
+msgstr "Automaticky vybrat nejlepší kvalitu"
 
 msgctxt "#33012"
 msgid "Use Function Cache"
-msgstr "Använd funktionscache"
+msgstr "Použít funkční mezipaměť"
 
 msgctxt "#33013"
 msgid "Reset Function Cache"
-msgstr "Nollställ funktionscache"
+msgstr "Vyčistit funkční mezipaměť"
 
 msgctxt "#33014"
 msgid "Universal Resolvers"
-msgstr "Universal Resolvers"
+msgstr "Univerzální průzkumník"
 
 msgctxt "#33015"
 msgid "Resolvers"
-msgstr "Resolvers"
+msgstr "Průzkumníci"
 
 msgctxt "#33016"
 msgid "Priority"
-msgstr "Prioritet"
+msgstr "Priorita"
 
 msgctxt "#33017"
 msgid "Enabled"
-msgstr "Aktiverad"
+msgstr "Povoleno"
 
 msgctxt "#33018"
 msgid "Real-Debrid Resolver Authorized"
-msgstr "Real-Debrid Resolver auktorisering"
+msgstr "Autorizace průzkumníku Real-Debrid"
 
 msgctxt "#33019"
 msgid "Real-Debrid Authorization Reset"
-msgstr "Nollställ Real-Debrid auktorisering"
+msgstr "Obnovit autorizaci Real-Debrid"
 
 msgctxt "#33020"
 msgid "Cache Reset"
-msgstr "Nollställ cache"
+msgstr "Vyčistit mezipaměť"
 
 msgctxt "#33021"
 msgid "Cache Reset Failed"
-msgstr "Cache nollställning misslyckades"
+msgstr "Selhalo vyčištění mezipaměti"
 
 msgctxt "#33022"
 msgid "login"
-msgstr "logga in"
+msgstr "přihlášení"
 
 msgctxt "#33023"
 msgid "Username"
-msgstr "Användarnamn"
+msgstr "Uživatelské jméno"
 
 msgctxt "#33024"
 msgid "Password"
-msgstr "Lösenord"
+msgstr "Heslo"
 
 msgctxt "#33025"
 msgid "Use HTTPS"
-msgstr "Använd HTTPS"
+msgstr "Použít HTTPS"
 
 msgctxt "#33026"
 msgid "Customer ID"
-msgstr "Kund-ID"
+msgstr "Zákaznické ID"
 
 msgctxt "#33027"
 msgid "PIN"
@@ -130,47 +130,47 @@ msgstr "PIN"
 
 msgctxt "#33028"
 msgid "Choose Primary Link Automatically"
-msgstr "Välj primär länk automatiskt"
+msgstr "Automaticky vybrat primární odkaz"
 
 msgctxt "#33029"
 msgid "(Re)Authorize My Account"
-msgstr "(Om)auktorisera mitt konto"
+msgstr "Autorizovat / znovu autorizovat účet"
 
 msgctxt "#33030"
 msgid "Reset My Authorization"
-msgstr "Nollställ min auktorisering"
+msgstr "Obnovit autorizaci"
 
 msgctxt "#33031"
 msgid "Resolver Auto-Updated"
-msgstr "Resolver automatiskt uppdaterad"
+msgstr "Průzkumník automaticky aktualizován"
 
 msgctxt "#33032"
 msgid "Type the letters in the image"
-msgstr "Skriv in bokstäverna i bilden"
+msgstr "Zadejte znaky z obrázku"
 
 msgctxt "#33033"
 msgid "Captcha Error"
-msgstr "Fel captcha"
+msgstr "Chyba ověření Captcha"
 
 msgctxt "#33034"
 msgid "Choose the link"
-msgstr "Välj en länk"
+msgstr "Vyberte odkaz"
 
 msgctxt "#33035"
 msgid "No link selected"
-msgstr "Ingen länk markerad"
+msgstr "Žádný odkaz není vybrán"
 
 msgctxt "#33036"
 msgid "No Video Link Found"
-msgstr "Ingen video länk hittades"
+msgstr "Nenalezen žádný odkaz na video"
 
 msgctxt "#33037"
 msgid "Captcha Round: %s [I](2 Rounds is typical)[/I]"
-msgstr "Captcha runda: %s [I](2 rundor är typiskt)[/I]"
+msgstr "Ověření Captcha - pokus: %s [I](typicky 2 pokusy)[/I]"
 
 msgctxt "#33038"
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr "Zrušit"
 
 msgctxt "#33039"
 msgid "OK"
@@ -178,9 +178,9 @@ msgstr "OK"
 
 msgctxt "#33040"
 msgid "IP Stream Authorization Pairing"
-msgstr "IP-strömauktorisering ihopparning"
+msgstr "Párování autorizace IP vysílání"
 
 msgctxt "#33041"
 msgid "No IP Authorization"
-msgstr "Ingen IP-auktorisering"
+msgstr "Žádná IP autorizace"
 

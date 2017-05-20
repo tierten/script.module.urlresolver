@@ -30,9 +30,19 @@ class RapidVideoResolver(UrlResolver):
         self.net = common.Net()
 
     def get_media_url(self, host, media_id):
+        web_url = self.get_url(host, media_id)
         headers = {'User-Agent': common.RAND_UA}
-        html = self.net.http_GET(self.get_url(host, media_id), headers=headers).content
+        html = self.net.http_GET(web_url, headers=headers).content
+        
+        data = helpers.get_hidden(html)
+        data['confirm.y'] = random.randint(0, 120)
+        data['confirm.x'] = random.randint(0, 120)
+        headers['Referer'] = web_url
+        post_url = web_url + '#'
+        html = self.net.http_POST(post_url, form_data=data, headers=headers).content.encode('utf-8')
+
         sources = helpers.parse_sources_list(html)
+
         if sources:
             sources = sorted(sources, key=lambda x: x[0])[::-1] 
             return helpers.pick_source(sources)

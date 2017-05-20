@@ -22,6 +22,9 @@ from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
+logger = common.log_utils.Logger.get_logger(__name__)
+logger.disable()
+
 MAX_TRIES = 3
 
 class UploadXResolver(UrlResolver):
@@ -40,7 +43,7 @@ class UploadXResolver(UrlResolver):
         while tries < MAX_TRIES:
             data = helpers.get_hidden(html, index=0)
             data.update(captcha_lib.do_captcha(html))
-            common.log_utils.log_debug(data)
+            logger.log_debug(data)
             html = self.net.http_POST(web_url, data, headers=headers).content
 
             if 'File Download Link Generated' in html:

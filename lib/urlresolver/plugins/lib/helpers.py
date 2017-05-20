@@ -33,7 +33,7 @@ def get_hidden(html, form_id=None, index=None, include_submit=True):
     html = cleanse_html(html)
         
     for i, form in enumerate(re.finditer(pattern, html, re.DOTALL | re.I)):
-        common.log_utils.log(form.group(1))
+        common.logger.log(form.group(1))
         if index is None or i == index:
             for field in re.finditer('''<input [^>]*type=['"]?hidden['"]?[^>]*>''', form.group(1)):
                 match = re.search('''name\s*=\s*['"]([^'"]+)''', field.group(0))
@@ -49,7 +49,7 @@ def get_hidden(html, form_id=None, index=None, include_submit=True):
                     if name and value:
                         hidden[name.group(1)] = value.group(1)
             
-    common.log_utils.log_debug('Hidden fields are: %s' % (hidden))
+    common.logger.log_debug('Hidden fields are: %s' % (hidden))
     return hidden
 
 def pick_source(sources, auto_pick=None):
@@ -128,7 +128,7 @@ def scrape_sources(html, result_blacklist=None, scheme='http'):
             
         matches = zip(labels, streams)
         if matches:
-            common.log_utils.log_debug('Scrape sources |%s| found |%s|' % (regex, matches))
+            common.logger.log_debug('Scrape sources |%s| found |%s|' % (regex, matches))
         return matches
 
     if result_blacklist is None:
@@ -139,21 +139,21 @@ def scrape_sources(html, result_blacklist=None, scheme='http'):
     html = add_packed_data(html)
 
     source_list = []
-    source_list += __parse_to_list(html, '''["']?label\s*["']?\s*[:=]\s*["'](?P<label>[^"']+)["'](?:,|[^}\]])["']?\s*file\s*["']?\s*[:=,]?\s*["'](?P<url>[^"']+)''')
-    source_list += __parse_to_list(html, '''["']?\s*file\s*["']?\s*[:=,]?\s*["'](?P<url>[^"']+)(?:[^}>\],]?["',]?\s*label\s*["']?\s*[:=]?\s*["'](?P<label>[^"']+))?''')
+    source_list += __parse_to_list(html, '''["']?label\s*["']?\s*[:=]\s*["']?(?P<label>[^"',]+)["']?(?:[^}\]]+)["']?\s*file\s*["']?\s*[:=,]?\s*["'](?P<url>[^"']+)''')
+    source_list += __parse_to_list(html, '''["']?\s*file\s*["']?\s*[:=,]?\s*["'](?P<url>[^"']+)(?:[^}>\]]+)["']?\s*label\s*["']?\s*[:=]\s*["']?(?P<label>[^"',]+)''')
     source_list += __parse_to_list(html, '''video[^><]+src\s*[=:]\s*['"](?P<url>[^'"]+)''')
     source_list += __parse_to_list(html, '''source\s+src\s*=\s*['"](?P<url>[^'"]+)['"](?:.*?data-res\s*=\s*['"](?P<label>[^'"]+))?''')
-    source_list += __parse_to_list(html, '''["']?\s*url\s*["']?\s*[:=]\s*["'](?P<url>[^"']+)''')
+    source_list += __parse_to_list(html, '''["']?\s*(?:file|url)\s*["']?\s*[:=]\s*["'](?P<url>[^"']+)''')
     source_list += __parse_to_list(html, '''param\s+name\s*=\s*"src"\s*value\s*=\s*"(?P<url>[^"]+)''')
 
-    common.log_utils.log(source_list)
+    common.logger.log(source_list)
     if len(source_list) > 1:
         try: source_list.sort(key=lambda x: int(x[0]), reverse=True)
         except:
-            common.log_utils.log_debug('Scrape sources sort failed |int(x[0])|')
+            common.logger.log_debug('Scrape sources sort failed |int(x[0])|')
             try: source_list.sort(key=lambda x: int(x[0][:-1]), reverse=True)
             except:
-                common.log_utils.log_debug('Scrape sources sort failed |int(x[0][:-1])|')
+                common.logger.log_debug('Scrape sources sort failed |int(x[0][:-1])|')
 
     return source_list
 

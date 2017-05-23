@@ -29,8 +29,8 @@ MAX_TRIES = 3
 
 class UploadXResolver(UrlResolver):
     name = "uploadx"
-    domains = ["uploadx.link"]
-    pattern = '(?://|\.)(uploadx\.link)/([0-9a-zA-Z/]+)'
+    domains = ["uploadx.link", "uploadx.org"]
+    pattern = '(?://|\.)(uploadx\.(?:link|org))/([0-9a-zA-Z/]+)'
 
     def __init__(self):
         self.net = common.Net()

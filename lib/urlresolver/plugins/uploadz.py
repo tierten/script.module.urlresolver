@@ -25,9 +25,9 @@ from urlresolver.resolver import UrlResolver, ResolverError
 MAX_TRIES = 3
 
 class UploadzResolver(UrlResolver):
-    name = "uploadz.co"
-    domains = ["uploadz.co"]
-    pattern = '(?://|\.)(uploadz\.co)/([0-9a-zA-Z/]+)'
+    name = "uploadz.org"
+    domains = ["uploadz.org"]
+    pattern = '(?://|\.)(uploadz\.org)/([0-9a-zA-Z/]+)'
 
     def __init__(self):
         self.net = common.Net()
@@ -41,8 +41,9 @@ class UploadzResolver(UrlResolver):
             data = helpers.get_hidden(html, index=0)
             data.update(captcha_lib.do_captcha(html))
 
-            html = self.net.http_POST(web_url, form_data=data).content
-            match = re.search('href="([^"]+)[^>]*>Download<', html, re.DOTALL)
+            html = self.net.http_POST(web_url, headers={'Referer': web_url}, form_data=data).content
+            common.logger.log(html)
+            match = re.search('href="([^"]+)[^>]*>Click here to download<', html, re.DOTALL | re.I)
             if match:
                 return match.group(1)
             tries += 1
@@ -50,4 +51,4 @@ class UploadzResolver(UrlResolver):
         raise ResolverError('Unable to resolve uploadz.co link. Filelink not found.')
 
     def get_url(self, host, media_id):
-        return 'https://uploadz.co/%s' % (media_id)
+        return 'https://uploadz.org/%s' % (media_id)

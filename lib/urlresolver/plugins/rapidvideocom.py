@@ -18,6 +18,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 """
 
 import random
+import re
 from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
@@ -45,7 +46,8 @@ class RapidVideoResolver(UrlResolver):
         sources = helpers.parse_sources_list(html)
 
         if sources:
-            sources = sorted(sources, key=lambda x: x[0])[::-1] 
+            try: sources.sort(key=lambda x: int(re.sub('[^\d]+', '', x[0])), reverse=True)
+            except: pass
             return helpers.pick_source(sources)
 
         raise ResolverError('File Not Found or removed')

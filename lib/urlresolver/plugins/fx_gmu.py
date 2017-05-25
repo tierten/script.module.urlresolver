@@ -53,7 +53,7 @@ def get_media_url(url):
                     
             headers.update({'Referer': url})
             html = net.http_GET(playvid_url, headers=headers).content
-            html = helpers.add_packed_data(html)
+            html += helpers.get_packed_data(html)
         
         logger.log(html)
         sources = helpers.parse_sources_list(html)

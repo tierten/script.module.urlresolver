@@ -1,5 +1,5 @@
-"""
-    urlresolver Kodi Addon
+'''
+    urlresolver Kodi plugin
     Copyright (C) 2016 Gujal
 
     This program is free software: you can redistribute it and/or modify
@@ -14,20 +14,17 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""
+'''
 
-# import re
-# import urllib
-# from urlresolver import common
-# from urlresolver.resolver import UrlResolver, ResolverError
 from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
-class VideoRajResolver(UrlResolver):
-    name = 'videoraj.to'
-    domains = ['videoraj.ec', 'videoraj.eu', 'videoraj.sx', 'videoraj.ch', 'videoraj.com', 'videoraj.to', 'videoraj.co']
-    pattern = '(?://|\.)(videoraj\.(?:ec|eu|sx|ch|com|co|to))/(?:v(?:ideo)*/|embed\.php\?id=)([0-9a-z]+)'
+
+class SpeedWatchResolver(UrlResolver):
+    name = "tvlogy.to"
+    domains = ["tvlogy.to"]
+    pattern = '(?://|\.)(tvlogy\.to)/(?:watch\.php\?v=)?([0-9a-zA-Z]+)'
 
     def __init__(self):
         self.net = common.Net()
@@ -37,14 +34,14 @@ class VideoRajResolver(UrlResolver):
         headers = {'User-Agent': common.FF_USER_AGENT}
         response = self.net.http_GET(web_url, headers=headers)
         html = response.content
+        if 'Not Found' in html:
+            raise ResolverError('File Removed')
 
-        if 'vidError' in html:
-            raise ResolverError('File Not Found or removed')
+        if 'Video is processing' in html:
+            raise ResolverError('File still being processed')
 
         sources = helpers.scrape_sources(html)
-        return helpers.pick_source(sources)
-
-        return stream_url
+        return 'plugin://plugin.video.f4mTester/?streamtype=HLS&url=' + helpers.pick_source(sources)
 
     def get_url(self, host, media_id):
-        return 'http://www.videoraj.to/embed.php?id=%s' % media_id
+        return self._default_get_url(host, media_id, template='http://{host}/watch.php?v={media_id}')

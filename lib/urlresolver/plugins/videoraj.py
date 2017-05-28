@@ -44,7 +44,5 @@ class VideoRajResolver(UrlResolver):
         sources = helpers.scrape_sources(html)
         return helpers.pick_source(sources)
 
-        return stream_url
-
     def get_url(self, host, media_id):
         return 'http://www.videoraj.to/embed.php?id=%s' % media_id

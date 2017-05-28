@@ -21,7 +21,7 @@ from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
 
-class SpeedWatchResolver(UrlResolver):
+class TVLogyResolver(UrlResolver):
     name = "tvlogy.to"
     domains = ["tvlogy.to"]
     pattern = '(?://|\.)(tvlogy\.to)/(?:watch\.php\?v=)?([0-9a-zA-Z]+)'
@@ -41,7 +41,10 @@ class SpeedWatchResolver(UrlResolver):
             raise ResolverError('File still being processed')
 
         sources = helpers.scrape_sources(html)
-        return 'plugin://plugin.video.f4mTester/?streamtype=HLS&url=' + helpers.pick_source(sources)
+        strurl = helpers.pick_source(sources)
+        if 'dailymotion.com' in strurl:
+            strurl = 'plugin://plugin.video.f4mTester/?streamtype=HLS&url=' + strurl
+        return strurl
 
     def get_url(self, host, media_id):
         return self._default_get_url(host, media_id, template='http://{host}/watch.php?v={media_id}')

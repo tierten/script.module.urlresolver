@@ -38,13 +38,11 @@ class TunePkResolver(UrlResolver):
         if 'Not Found' in html:
             raise ResolverError('File Removed')
 
-        web_url = re.findall("requestURL = '(.*?)'",html)[0]
+        web_url = re.findall("requestURL = '(.*?)'", html)[0]
         response = self.net.http_GET(web_url, headers=headers)
         jdata = json.loads(response.content)
-        vids = jdata['data']['details']['player']['sources']
-        sources=[]
-        for vid in vids:
-            sources.append((vid['label'],vid['file']))
+        vids = jdata.get('data', {}).get('details', {}).get('player', {}).get('sources', [])
+        sources = [(vid['label'], vid['file']) for vid in vids]
         return helpers.pick_source(sources) + helpers.append_headers(headers)
 
     def get_url(self, host, media_id):

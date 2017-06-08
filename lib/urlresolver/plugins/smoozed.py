@@ -23,8 +23,11 @@ import hashlib
 import time
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
-from crypto.keyedHash.hmacHash import HMAC_SHA1
-from crypto.common import xor
+try:
+    from crypto.keyedHash.hmacHash import HMAC_SHA1
+    from crypto.common import xor
+except ImportError:
+    HMAC_SHA1 = None
 from math import ceil
 from struct import pack
 import binascii
@@ -147,9 +150,13 @@ class SmoozedResolver(UrlResolver):
 
     @classmethod
     def _is_enabled(cls):
+        if HMAC_SHA1 is None:
+            return False
         return cls.get_setting('enabled') == 'true' and cls.get_setting('email')
 
     def valid_url(self, url, host):
+        if HMAC_SHA1 is None:
+            return False
         common.logger.log_debug('in valid_url %s : %s' % (url, host))
         if url:
             if self.hosters is None:

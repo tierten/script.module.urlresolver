@@ -16,31 +16,39 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import re
+import urlparse
 from lib import helpers
 from urlresolver import common
 from urlresolver.resolver import UrlResolver, ResolverError
 
 
-class GorillavidResolver(UrlResolver):
-    name = "gorillavid"
-    domains = ["gorillavid.in", "gorillavid.com"]
-    pattern = '(?://|\.)(gorillavid\.(?:in|com))/(?:embed-)?([0-9a-zA-Z]+)'
+class H265Resolver(UrlResolver):
+    name = "h265.se"
+    domains = ["h265.se"]
+    pattern = '(?://|\.)(h265\.se)/(?:embed)-([0-9A-Za-z]+)\.html'
 
     def __init__(self):
         self.net = common.Net()
 
     def get_media_url(self, host, media_id):
         web_url = self.get_url(host, media_id)
-        headers = {'User-Agent': common.FF_USER_AGENT}
-        response = self.net.http_GET(web_url, headers=headers)
-        html = response.content
-        sources = helpers.scrape_sources(html, patterns=['''["']?(?:file|url)["']?\s*[:=]\s*["'](?P<url>[^"']+)'''])
-        if not sources:
-            data = helpers.get_hidden(html)
-            headers['Cookie'] = response.get_headers(as_dict=True).get('Set-Cookie', '')
-            html = self.net.http_POST(response.get_url(), headers=headers, form_data=data).content
-            sources = helpers.scrape_sources(html, patterns=['''["']?(?:file|url)["']?\s*[:=]\s*["'](?P<url>[^"']+)'''])
-        return helpers.pick_source(sources) + helpers.append_headers(headers)
+
+        html = self.net.http_GET(web_url).content
+        html = helpers.get_packed_data(html)
+        url = re.findall('file\s*:\s*(?:\'|\")(.+?)(?:\'|\")', html)
+
+        if not url: raise ResolverError('No video found')
+
+        headers = {'User-Agent': common.FF_USER_AGENT, 'Referer': web_url}
+
+        url = urlparse.urljoin(web_url, url[-1])
+        url = self.net.http_HEAD(url, headers=headers).get_url()
+
+        url = url + helpers.append_headers(headers)
+        return url
+
+        raise ResolverError('No video found')
 
     def get_url(self, host, media_id):
-        return 'http://gorillavid.in/%s' % (media_id)
+        return 'http://h265.se/embed-%s.html' % media_id
